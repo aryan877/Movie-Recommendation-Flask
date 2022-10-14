@@ -14,31 +14,37 @@ CORS(app)
 #api for movie click and search
 @app.route('/recommend/<int:tmdbId>')
 def recommendmovie(tmdbId):
+   # read relevant csv files
     linkscsv = pd.read_csv('./links.csv',encoding= 'unicode_escape')
-    # Extract movieId value by using tmbdId
-    try:
-        movieId= linkscsv.loc[linkscsv['tmdbId'] == tmdbId, 'movieId'].iloc[0]
-    except Exception:
-        return jsonify("tmdbId is not valid"),400
-
     moviedatacsv = pd.read_csv('./moviedata.csv', encoding='unicode_escape')
     ratingdatacsv = pd.read_csv('./ratingdata.csv',encoding= 'unicode_escape', nrows=200000)
 
+    # Extract movieId value by using tmbdId, will fail if tmdbId does not exist
+    movieId= linkscsv.loc[linkscsv['tmdbId'] == tmdbId, 'movieId'].iloc[0]
+ 
     #1. Collaborative Filtering ( Item Based )
+
+    # create a matrix with the first 200000 rows in ratingdata with userId as rows and movieId as columns
     movie_matrix = ratingdatacsv.pivot_table(index='userId', columns='movieId', values='rating')
+
+    # create a dataframe that contains the count of ratings for a particular movie 
     number_of_ratings_for_movie = pd.DataFrame(ratingdatacsv.groupby('movieId')['rating'].count()).rename(columns={'rating': 'number_of_ratings'})
     
-    try:
-        input_movie_all_ratings = movie_matrix[movieId]
-    except Exception:
-        return jsonify("Oops! Our Database does not have enough data in order to generate recommendations for this movie"), 500
+    # Extract input movie ratings by all users, will fail if queried movie was not amongst the first 200000 movies
+    input_movie_all_ratings = movie_matrix[movieId]
 
+    # create a dataframe that shows correlation of input movie rating column with all other movie columns in the matrix
     similar_movie_based_on_input_movie_ratings = movie_matrix.corrwith(input_movie_all_ratings)
 
+    # rename the column as Correlation
     similar_movie_df = pd.DataFrame(similar_movie_based_on_input_movie_ratings, columns=['Correlation'])
+
+    similar_movie_df.to_csv('file1.csv')
+
+    # Drop movies that have no correlation
     similar_movie_df.dropna(inplace=True)
 
-    
+    # 
     similar_movie_df = pd.merge(similar_movie_df, number_of_ratings_for_movie, on='movieId', how='left')
 
     similar_movie_df = similar_movie_df.join(number_of_ratings_for_movie['number_of_ratings'])
