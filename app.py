@@ -1,7 +1,6 @@
 from flask import Flask, jsonify
 from flask_cors import CORS
 import pandas as pd 
-import re
 from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.feature_extraction.text import CountVectorizer
 import re
@@ -9,7 +8,6 @@ import re
 app = Flask(__name__)
 app.config['DEBUG'] = True
 CORS(app)
-
 
 @app.route('/recommend/<int:tmdbId>')
 def recommendmovie(tmdbId):
@@ -125,11 +123,6 @@ def namefilter(userinput):
 
     # send movieId along with movieName as json
     return filterednameswithtmdbId.to_json(orient='records'), 200
-
-
-@app.route('/namefilter/')
-def namefilterhandler():
-    return jsonify({}), 200
 
 
 @app.errorhandler(404)
