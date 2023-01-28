@@ -4,3 +4,7 @@ links.csv
 moviedata.csv
 ratingdata.csv
 .DS_Store
+clean.py
+generate_dyanmodb.py
+generate_mongodb.py
+.env
