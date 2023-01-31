@@ -7,4 +7,5 @@ ratingdata.csv
 clean.py
 generate_dyanmodb.py
 generate_mongodb.py
+finalapp.py
 .env
