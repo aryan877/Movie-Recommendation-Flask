@@ -25,8 +25,8 @@ def recommendation():
         start_index = (page - 1) * per_page
         end_index = start_index + per_page
         linkscsv = pd.read_csv('./links.csv',encoding= 'unicode_escape')
-        moviedatacsv = pd.read_csv('./moviedata.csv', encoding='unicode_escape')
-        ratingdatacsv = pd.read_csv('./ratingdata.csv',encoding= 'unicode_escape', nrows=500000)
+        moviedatacsv = pd.read_csv('./movies.csv', encoding='unicode_escape')
+        ratingdatacsv = pd.read_csv('./ratings.csv',encoding= 'unicode_escape', nrows=500000)
 
         # Extract movieId value by using tmbdId, will fail if tmdbId does not exist
         movieId= linkscsv.loc[linkscsv['tmdbId'] == tmdbId, 'movieId'].iloc[0]
@@ -165,7 +165,7 @@ def search():
             return jsonify([]), 200
         
         # read relevant csv files
-        moviedatacsv = pd.read_csv('./moviedata.csv', encoding='unicode_escape')
+        moviedatacsv = pd.read_csv('./movies.csv', encoding='unicode_escape')
         linkscsv = pd.read_csv('./links.csv', encoding='unicode_escape')
 
         escaped_userinput = re.escape(userinput)
@@ -177,7 +177,6 @@ def search():
         filterednameswithtmdbId = filterednames.merge(linkscsv[['tmdbId', 'movieId']], on='movieId', how='left')
 
         # send movieId along with movieName as json
-        print(filterednameswithtmdbId.to_json(orient='records'))
         return filterednameswithtmdbId.to_json(orient='records'), 200
     except:
         return jsonify([]), 200

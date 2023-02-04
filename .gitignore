@@ -1,8 +1,8 @@
 .venv/
 flask_server/
 links.csv
-moviedata.csv
-ratingdata.csv
+movies.csv
+ratings.csv
 .DS_Store
 clean.py
 generate_dyanmodb.py

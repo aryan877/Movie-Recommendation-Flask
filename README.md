@@ -22,6 +22,6 @@ The system also includes a search autocomplete feature, which is now implemented
 
 ## Running the System
 
-To run the system locally, simply clone the project and run the finalapp.py file. However, you will need to source the data from the [MovieLens 25M movie ratings dataset](https://grouplens.org/datasets/movielens/25m/ 'MovieLens 25M movie ratings dataset') for the CSV files as the app.py file still needs them.
+To run the system locally, simply clone the project and run the app.py file. However, you will need to source the data from the [MovieLens 25M movie ratings dataset](https://grouplens.org/datasets/movielens/25m/ 'MovieLens 25M movie ratings dataset') for the CSV files as the app.py file still needs them.
 
 _Please note that this project is for educational and demonstration purposes only and should not be used in a production environment._
