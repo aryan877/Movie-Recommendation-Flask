@@ -5,8 +5,5 @@ movies.csv
 ratings.csv
 .DS_Store
 clean.py
-generate_dyanmodb.py
-generate_mongodb.py
-generate_moviename_tmdbId_mongo.py
-merge_both_collection_with_name.py
 .env
+legacy/
