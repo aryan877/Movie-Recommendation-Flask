@@ -177,6 +177,7 @@ def search():
         filterednameswithtmdbId = filterednames.merge(linkscsv[['tmdbId', 'movieId']], on='movieId', how='left')
 
         # send movieId along with movieName as json
+        print(filterednameswithtmdbId.to_json(orient='records'))
         return filterednameswithtmdbId.to_json(orient='records'), 200
     except:
         return jsonify([]), 200
