@@ -2,19 +2,18 @@ from flask import Flask, jsonify, request
 from flask_cors import CORS
 from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.feature_extraction.text import CountVectorizer
-import re
+
 import requests
-from dotenv import load_dotenv
-load_dotenv()
-import os
+
 app = Flask(__name__)
-# app.config['DEBUG'] = True
-CORS(app)
-tmdb_key = os.environ['TMDB_ACCESS_KEY']
-import pymongo
+CORS(app, origins=["http://localhost:3000", "https://next-movie-recommender.vercel.app"])
+
+import os
 from dotenv import load_dotenv
 load_dotenv()
-import os
+tmdb_key = os.environ['TMDB_ACCESS_KEY']
+
+import pymongo
 client = pymongo.MongoClient("mongodb+srv://" + os.environ["MONGO_USER"]+ ":"+ os.environ["MONGO_PWD"]+"@cluster0.tnymq.mongodb.net/?retryWrites=true&w=majority")
 db = client['recommender']
 collection = db['movie_recommendation_tmdb']
@@ -73,7 +72,6 @@ def recommendation():
         print(e)
         return jsonify({"error": "Internal Server Error", "message": "An error has occured, please try again later"}), 500
 
-
 @app.route('/search/')
 def search():
     try:
@@ -108,8 +106,6 @@ def search():
         print(e)
         return jsonify([]), 500
 
-
-
 @app.route('/id/')
 def id():
     try:
@@ -123,7 +119,6 @@ def id():
     except Exception as e:
         print(e)
         return jsonify({}), 500
-
 
 @app.errorhandler(404)
 def invalid_route(e): 
