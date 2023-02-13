@@ -8,3 +8,4 @@ clean.py
 .env
 legacy/
 .ebextensions/
+modifyrequirements.py

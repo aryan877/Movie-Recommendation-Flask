@@ -185,6 +185,11 @@ def search():
 @app.errorhandler(404)
 def invalid_route(e): 
     return jsonify({'errorCode' : 404, 'message' : 'Route not found'}), 404
+    
+@app.route('/')
+def index():
+    return jsonify({'message': 'Welcome to the Flask API'})
+
 
 if __name__ == '__main__':
       app.run(host='127.0.0.1')

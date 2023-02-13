@@ -18,6 +18,11 @@ client = pymongo.MongoClient("mongodb+srv://" + os.environ["MONGO_USER"]+ ":"+ o
 db = client['recommender']
 collection = db['movie_recommendation_tmdb']
 
+
+@app.route('/')
+def index():
+    return jsonify({'message': 'Welcome to the Flask API'})
+
 @app.route('/recommendations/')
 def recommendation():
     try:
