@@ -1,12 +1,10 @@
 from flask import Flask, jsonify, request
-from flask_cors import CORS
 from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.feature_extraction.text import CountVectorizer
 
 import requests
 
 app = Flask(__name__)
-CORS(app, origins=["http://localhost:3000", "https://next-movie-recommender.vercel.app"])
 
 import os
 from dotenv import load_dotenv
