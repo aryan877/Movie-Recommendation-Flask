@@ -12,9 +12,9 @@ In addition to collaborative filtering, the system also implements content-based
 
 ## Optimization
 
-The initial version of the system was implemented using the app.py file, which ran the machine learning algorithm in real-time. However, this was found to be slow and inefficient. To resolve this issue, custom scripts were created that pre-processed the inputs and outputs and fed them to MongoDB. This improved the processing time significantly.
+The initial version of the system was implemented using the app.py file, which ran the machine learning algorithm in real-time. This was slow and inefficient. To resolve this issue, custom scripts that pre-processed the inputs and outputs and fed them to MongoDB were a better choice. This improved the reponse time for api calls.
 
-The final version of the system, finalapp.py, is the current implementation. This version runs the API on Flask and sources the data from MongoDB, which contains pre-processed inputs and outputs. This eliminates the need to read from CSV files and process the data in real-time at a 10x faster speed.
+The final version of the system, finalapp.py, is the current implementation. This version runs the API on Flask and sources the data from MongoDB, which stores the pre-processed inputs and outputs. This eliminates the need to read from CSV files and the newer api returns the data in real-time 10x faster.
 
 ## Search Autocomplete
 
